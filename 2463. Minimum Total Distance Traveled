@@ -1,0 +1,39 @@
+#To solve this problem, we need to determine the optimal movement for each robot so that the total distance traveled 
+#by all robots is minimized. Each factory has a limited number of robots it can repair, and each robot can be set to move 
+#toward the nearest factory
+class Solution:
+    def minimumTotalDistance(self, robot: List[int], factory: List[List[int]]) -> int:
+        
+    # Sort robots and factories based on positions. (an to sketfteis auta pou tha einai px stin arxi tha einai logika koda metaksi tous, gia auto kaneis shorting)
+        robot.sort()
+        factory.sort(key=lambda x: x[0]) #shorting vasi to x[0] kai ara to simio tou factory
+
+    # Number of robots and factories
+        n, m = len(robot), len(factory)
+
+    # Initialize a large value for unreachable state
+        INF = float('inf')
+
+    # DP table to store minimum distance cost for the first i robots and first j factories
+        dp = [[INF] * (m + 1) for _ in range(n + 1)] #stin ousia ena 2D table, me diastaseis (n+1)x(m+1) opou kathe element mporei na einai to INF. +1 kai stis duo diastasis giati tha prepei na apothikeusoume sto telos telos to apotelesma. dp = [
+#    [0, INF, INF],
+#    [INF, 2, INF],
+#    [INF, 4, INF],
+#    [INF, INF, 4]
+#]
+        dp[0][0] = 0  # No cost if no robots and no factories
+
+    # Fill DP table
+        for i in range(n + 1):
+            for j in range(m):
+            # Carry forward previous state if no robot is assigned to this factory
+                dp[i][j + 1] = min(dp[i][j + 1], dp[i][j])
+
+            # Sum of distances for consecutive robots to this factory
+                total_dist = 0
+                for k in range(i, min(n, i + factory[j][1])):
+                    total_dist += abs(robot[k] - factory[j][0])
+                    dp[k + 1][j + 1] = min(dp[k + 1][j + 1], dp[i][j] + total_dist)
+
+    # Minimum distance for all robots repaired with all factories. Sthn ousia einai to telefteo keli tou pinaka kato kato deksia.
+        return dp[n][m]
