@@ -1,0 +1,10 @@
+#Polu aplo. Vazo grammata sto kenourgio list, kai ota nftaso sto trito kai meta tsekaro an einai to idio me ta duo proigoumena kai to kano continue, allios append.
+class Solution:
+    def makeFancyString(self, s: str) -> str:
+        new=[]
+        
+        for i in s:
+            if len(new)>=2 and new[-1]== i and new[-2]== i:
+                continue
+            new.append(i)
+        return ''.join(new)
