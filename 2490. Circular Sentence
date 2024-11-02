@@ -1,0 +1,15 @@
+#This program reads a sentence, checks each word's last letter against the next word's first letter (case-insensitively), and verifies if the sentence forms a circular chain.
+class Solution:
+    def isCircularSentence(self, sentence: str) -> bool:
+        #For each space character found (sentence[i] == ' '):
+#Check if the character before the space (sentence[i - 1]) is not equal to the character after the space (sentence[i + 1]).
+#If they are not equal, return false (indicating the sentence is not circular).
+        for i in range(len(sentence)):
+            if sentence[i] == " " and sentence[i - 1] != sentence[i + 1]:
+                return False
+        #and now check if the first character and last are equal
+        return sentence[0] == sentence[len(sentence) - 1]
+    
+    # If all checks pass, the sentence is circular
+        return True
+        
