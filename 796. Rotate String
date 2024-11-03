@@ -1,0 +1,12 @@
+#The idea is that if s can become goal after any number of shifts, then goal must be a substring of s + s. Logiko, kathos an pareis to s+s to goal tha einai ena substring mesa se auto. px s = "abcde" becomes "abcdeabcde"
+class Solution:
+    def rotateString(self, s: str, goal: str) -> bool:
+    
+    # Check if both strings are of the same length
+        if len(s) != len(goal):
+            return False
+    
+    # Check if goal is a substring of s + s
+        return goal in (s + s)
+
+
