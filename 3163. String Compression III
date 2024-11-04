@@ -1,0 +1,19 @@
+#Not much here. Just go through the string with i as index to traverse it. while the current i is equal to the i+1 then count+1. max 9 same letters in row and append them on the new string with the number of counts in first.
+class Solution:
+    def compressedString(self, word: str) -> str:
+        comp=""
+        i=0 #the index to traverse the string input
+
+        while i < len(word):
+            count=1 #count the occurences of a character
+            current_char=word[i]
+
+            while i+1 < len(word) and word[i]==word[i+1] and count <9:
+                count+=1
+                i+=1
+            
+            comp+= str(count) + current_char
+
+            i+=1
+        
+        return comp
