@@ -1,0 +1,17 @@
+from collections import defaultdict
+class Solution:
+    def canSortArray(self, nums: List[int]) -> bool:
+        prevmax, currmin, currmax=0,0,0
+        prevbit=1
+
+        for num in nums:
+            i=num.bit_count()
+            if prevbit!=i:
+                if currmin<prevmax: return False
+                prevmax=currmax
+                currmin,currmax=num,num
+                prevbit=i
+            else:
+                currmin=min(currmin,num)
+                currmax=max(currmax,num)
+        return currmin>=prevmax
