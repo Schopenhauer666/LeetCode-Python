@@ -1,0 +1,22 @@
+#so my thought was that if we short it so we have first the biggest beuty, then we could search the list and at the firs tplace that we find a price that we can use, that means tha this buety is the max that we can get.
+class Solution:
+    def maximumBeauty(self, items: List[List[int]], queries: List[int]) -> List[int]:
+        #shorted about the beuty
+        items.sort(key=lambda x:x[1])
+        result=[]
+        
+        for j in queries:
+            found= False
+            #go from the biggest beuty to the smaller
+            for item in reversed(items):
+                if item[0]<= j:
+                    result.append(item[1])
+                    found=True
+                    break
+            if not found:
+                result.append(0)
+
+        if not result:
+            result.append(0)
+
+        return result
