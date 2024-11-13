@@ -1,0 +1,16 @@
+from bisect import bisect_left, bisect_right
+class Solution:
+    def countFairPairs(self, nums: List[int], lower: int, upper: int) -> int:
+        nums.sort()    
+        pairs=0
+        for i in range(len(nums)-1):
+            #bisect_left::::Finds the leftmost position in sorted_list where x can be inserted to keep the list sorted.
+            low = bisect_left(nums, lower - nums[i], i + 1)
+            print("low:",low)
+            #bisect_right::::Finds the rightmost position in sorted_list where x can be inserted to keep the list sorted.
+            up = bisect_right(nums, upper - nums[i], i + 1)
+            print("up:",up)
+            pairs += up - low
+            
+
+        return pairs
