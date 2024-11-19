@@ -1,0 +1,33 @@
+#In this type o exercises we need to use set. In a set can't be duplicants. With the help of a window we gonna scan the whole array and find the sub max.
+class Solution:
+    def maximumSubarraySum(self, nums: List[int], k: int) -> int:
+
+        mSum = float("-inf")
+        window = set()
+        cSum = 0
+        L = 0
+        if k>len(nums) or k==0:
+            return 0
+
+        for R in range(len(nums)):
+            if nums[R] not in window:
+                cSum += nums[R]
+                window.add(nums[R])
+            else:
+                # Move left pointer forward to remove duplicates
+                while nums[L] != nums[R]:
+                    cSum -= nums[L]
+                    window.remove(nums[L])
+                    L += 1
+                L += 1  # Skip the duplicate element
+            
+            # If the window size is k, update the max sum and shrink the window
+            if len(window) == k:
+                mSum = max(mSum, cSum)
+                # Remove the left element from the window and adjust the sum
+                cSum -= nums[L]
+                window.remove(nums[L])
+                L += 1
+        
+        return 0 if mSum == float("-inf") else mSum
+                
