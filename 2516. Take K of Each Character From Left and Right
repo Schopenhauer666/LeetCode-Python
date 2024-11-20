@@ -1,0 +1,22 @@
+#To solve this we will use a sliding window, that checks if all the # of a,b,c are lower than k, that means that we lost an element that we want.
+class Solution:
+    def takeCharacters(self, s: str, k: int) -> int:
+        count=[0,0,0]
+        #ord is used for ASCII. if you have a=97 and you do 97-97 you get 0. So the count[0] will get this +=1
+        for i in s:
+            count[ord(i)-ord('a')]+=1
+
+        if min(count)<k:
+            return -1
+        
+        result=float("inf")
+        left=0
+        for right in range(len(s)):
+            count[ord(s[right])-ord('a')]-=1
+
+            while min(count)<k:
+                count[ord(s[left])-ord('a')]+=1
+                left+=1
+            
+            result=min(result,len(s)-(right-left+1))
+        return result
