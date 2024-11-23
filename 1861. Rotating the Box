@@ -1,0 +1,17 @@
+#To solve this you have to think simple. When you reverse the box by 90 your columns will be the rows from before. So you start go through 
+#its single row of obx starting from the endof it. This will be the drop position. Going to the left of the row you checking if there is
+# a # so you can put it that the dropPos. If you find a * you make this, the new dropPos. At the end you reverse the rows of the box with [::-1] and roatate the box with zip*.
+class Solution:
+    def rotateTheBox(self, box: List[List[str]]) -> List[List[str]]:
+        for row in box:
+            dropPos = len(row) - 1  
+            
+            for currPos in range(len(row)-1, -1, -1):
+                if row[currPos] == "*":  
+                    dropPos = currPos - 1
+                elif row[currPos] == "#":  
+                    row[dropPos], row[currPos] = row[currPos], row[dropPos]
+                    dropPos -= 1
+
+        result = zip(*box[::-1])
+        return result
