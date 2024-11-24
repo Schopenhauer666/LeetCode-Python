@@ -1,0 +1,19 @@
+#If there are an odd number of negative elements, one of them must remain negative in the final configuration.
+#To minimize the penalty, we subtract twice the smallest absolute value from the total sum.
+#If the number of negatives is even, the entire matrix can be made non-negative, resulting in the sum of all absolute values.
+class Solution:
+    def maxMatrixSum(self, matrix: List[List[int]]) -> int:
+        #total sum of all values, abs()
+        total=0
+        #count the negatives to find if they are equal or not
+        negatives=0 
+        min_abs_value=float("inf")
+
+        for row in matrix:
+            for num in row:
+                total+=abs(num)
+                min_abs_value=min(min_abs_value,abs(num))
+                if num<0:
+                    negatives+=1
+        # 
+        return total-2*min_abs_value if negatives%2==1 else total
