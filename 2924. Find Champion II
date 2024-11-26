@@ -1,0 +1,23 @@
+#A simple approach to this. Just check if the current team can be found on the left of its list.
+class Solution:
+    def findChampion(self, n: int, edges: List[List[int]]) -> int:
+        ans=1
+        count=0
+        if edges==[]:
+            if n<2:
+                return 0
+            else:
+                return -1
+        for i in range(0,n):
+            flag= True
+            print(i)
+            for edge in edges:
+                if edge[1]==i:
+                    flag=False
+            if flag:
+                count+=1
+                ans= i
+        if count>1:
+            return -1
+
+        return ans
