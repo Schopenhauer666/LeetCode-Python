@@ -1,0 +1,25 @@
+#update the shortest distance everytime you at a path.
+#use a graph with current node and distances
+class Solution:
+    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:
+        adj=[[i+1] for i in range(n)]
+        
+        def shortestpath():
+            q=deque()
+            q.append((0,0))
+            visit=set()
+            visit.add((0,0))
+
+            while q:
+                cur,length=q.popleft()
+                if cur ==n-1:
+                    return length
+                for neigh  in adj[cur]:
+                    if neigh not in visit:
+                        q.append((neigh,length+1))
+                        visit.add(neigh)
+        res=[]
+        for src,dst in queries:
+            adj[src].append(dst)
+            res.append(shortestpath())
+        return res
