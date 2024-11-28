@@ -1,0 +1,31 @@
+#start from top left 0,0 and use a dq to implement BFS.
+#create a mxn matrix and calculate the distance from the start.
+#If moving to a neighboring cell doesn’t require removing an obstacle (grid[nx][ny] == 0), push it to the front of the deque (higher priority)
+#else =1
+#newx and newy are the neighbors from the current cell.
+class Solution:
+    def minimumObstacles(self, grid: List[List[int]]) -> int:
+
+        directions=[(0,1),(0,-1),(1,0),(-1,0)]
+
+        m=len(grid)
+        n=len(grid[0])
+        distance=[[float('inf')]* n for _ in range(m)]
+        dq=collections.deque()
+
+        distance[0][0]=0
+        dq.appendleft((0,0))
+        
+        while dq:
+            x,y=dq.popleft()
+            for dx,dy in directions:
+                newx, newy=x+dx, y+dy
+                if 0<=newx<m and 0<=newy<n:
+                    newDist=distance[x][y] + grid[newx][newy]
+                    if newDist< distance[newx][newy]:
+                        distance[newx][newy]=newDist
+                        if grid[newx][newy]==0:
+                            dq.appendleft((newx,newy))
+                        else:
+                            dq.append((newx,newy))
+        return distance[m-1][n-1]
