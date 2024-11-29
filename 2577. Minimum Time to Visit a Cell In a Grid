@@ -1,0 +1,28 @@
+class Solution:
+    def minimumTime(self, grid: List[List[int]]) -> int:
+        if grid[0][1]>1 and grid[1][0]>1 :
+            return -1
+        rows=len(grid)
+        cols=len(grid[0])
+        dirs=[(1,0),(-1,0),(0,1), (0,-1)]
+        
+        q=[(0,0,0)]
+        visit = [[False] * cols for _ in range(rows)]
+        visit[0][0] = True
+
+        while q:
+            t,x,y=heappop(q)
+            for dx,dy in dirs:
+                nx,ny=x+dx,y+dy
+                if nx<0 or nx>=rows or ny<0 or ny>= cols or visit[nx][ny]:
+                    continue
+                nt=t+1
+                if grid[nx][ny]>nt:
+                    nt+=(grid[nx][ny]-t)//2*2
+
+                if nx==rows-1 and ny==cols-1:
+                    return nt
+                visit[nx][ny]=True
+                heappush(q,(nt,nx,ny))
+        return -1
+   
