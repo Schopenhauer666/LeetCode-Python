@@ -1,0 +1,19 @@
+#Use two pointers. Start char by char and check if the current char index is tha same with spaces
+class Solution:
+    def addSpaces(self, s: str, spaces: List[int]) -> str:
+        result=[]
+        result=[None]* (len(s)+len(spaces))  #for efficience wwe initialize it
+
+        space_index=0
+        string_index=0
+
+        for char in range(len(s)):
+            if space_index<len(spaces) and char == spaces[space_index]:
+                result[string_index]=" "
+                string_index+=1
+                space_index+=1
+            
+            result[string_index]=s[char]
+            string_index+=1
+        
+        return "".join(result[:string_index])
