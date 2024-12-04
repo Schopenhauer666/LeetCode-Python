@@ -1,0 +1,14 @@
+#so first check if str2 is bigger than str1 so it cant be a substring of it. Then just use two indexes and check if for every letter of str1, the str2 can do what ever t says. If it can, add 1 to the index of str2. If the index of str2 is equal to the length of the str2, that means that all the letteres of it can do what is says.
+class Solution:
+    def canMakeSubsequence(self, str1: str, str2: str) -> bool:
+        s2i=0
+        s1l=len(str1)
+        s2l=len(str2)
+        if s1l<s2l:
+            return False
+        
+        for s1i in range(s1l):
+            if s2i< s2l and (str1[s1i]== str2[s2i] or ord(str1[s1i])+1==ord(str2[s2i]) or ord(str1[s1i])-25==ord(str2[s2i])):
+                s2i+=1
+        
+        return s2i == s2l
