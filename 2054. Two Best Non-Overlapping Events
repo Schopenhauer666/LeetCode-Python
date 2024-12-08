@@ -1,0 +1,13 @@
+class Solution:
+    def maxTwoEvents(self, events: List[List[int]]) -> int:
+        events.sort() #sort them based on there first value, the time they start
+        pq=[] #priority queue
+        maxv=0
+        res=0
+        for start,end,value in events:
+            print(pq)
+            while pq and pq[0][0]<start: # the events in pq ends before our current event start
+                maxv=max(maxv,heapq.heappop(pq)[1])
+            res=max(res,maxv+value)
+            heapq.heappush(pq,(end,value))
+        return res
