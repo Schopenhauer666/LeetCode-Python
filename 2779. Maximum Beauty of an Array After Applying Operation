@@ -1,0 +1,12 @@
+#the simple solution is to sort this list. Then you have to think what you want to take, that is the max number of numbers that can be the same if you +-k them. Now that you have a sort list, you start 1by1 checking if the number lands at the space 2*k
+class Solution:
+    def maximumBeauty(self, nums: List[int], k: int) -> int:
+        nums.sort()
+        d = 2 * k
+        l = 0
+        for n in nums:
+            if nums[l] + d < n:
+                l += 1
+        return len(nums) - l
+
+        
