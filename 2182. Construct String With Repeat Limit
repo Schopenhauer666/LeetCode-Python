@@ -1,0 +1,27 @@
+class Solution:
+    def repeatLimitedString(self, s: str, repeatLimit: int) -> str:
+        chars =sorted(s,reverse=True)
+        res=[]
+        freq=1
+        pointer=0
+
+        for char in range(len(chars)):
+            if res and res[-1]==chars[char]:
+                if freq<repeatLimit:
+                    res.append(chars[char])
+                    freq+=1
+                else:
+                    pointer=max(pointer,char+1)
+                    while pointer<len(chars) and chars[pointer]==chars[char]:
+                        pointer+=1
+                    
+                    if pointer<len(chars):
+                        res.append(chars[pointer])
+                        chars[char], chars[pointer]= chars[pointer], chars[char]
+                        freq=1
+                    else:
+                        break
+            else:
+                res.append(chars[char])
+                freq=1
+        return ''.join(res)
